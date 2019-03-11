@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Lab 17 - Clair Vulnerability Scan | Red Hat | Public Sector</title>
+
+    
+    
+    <link rel="stylesheet" href="/node_modules/patternfly/dist/css/patternfly.min.css" />
+    <link rel="stylesheet" href="/node_modules/patternfly/dist/css/patternfly-additions.min.css" />
+
+    
+    <link rel="stylesheet" href="/node_modules/highlight.js/styles/darkula.css" />
+
+    
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/asciidoc.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    
+    <script id="adobe_dtm" src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/jquery/dist/jquery.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/c3/c3.min.js"></script>
+    <script src="/node_modules/patternfly/node_modules/d3/d3.min.js"></script>
+
+    
+    
+    <script src="/node_modules/patternfly/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/node_modules/patternfly/node_modules/drmonty-datatables-colvis/js/dataTables.colVis.js"></script>
+    <script src="/node_modules/patternfly/node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"></script>
+
+    
+    
+    <script src="/node_modules/patternfly/dist/js/patternfly.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/patternfly-bootstrap-combobox/js/bootstrap-combobox.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/moment/min/moment.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+
+    
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+    
+    <script src="/node_modules/patternfly/node_modules/jquery-match-height/dist/jquery.matchHeight-min.js"></script>
+    
+    <script src="/js/clipboard.min.js"></script>
+    <script src="/js/clip.js"></script>
+    
+    <script src="/node_modules/highlight.js/lib/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body class="">
+    
+
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="/img/brand.png" alt="Red Hat | Public Sector" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        
+        
+          
+            <li>
+              <a href="/">Home</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/contact/">Contact</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/events/">Events</a>
+            </li>
+          
+        
+          
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Workshops <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                
+                  <li>
+                    <a href="/workshops/agile_integrations_ci/">Agile Integrations Workshop - Citizen Integrator</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/agile_integrations_dev/">Agile Integrations Workshop - Developer</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/ansible_tower/">Ansible Tower Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/ansible_tower_azure/">Ansible Tower Workshop on Azure</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/cloudforms41/">CloudForms Workshops</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/security_containers/">Container Security Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/containers_101/">Containers 101 Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/secure_software_factory/">DevSecOps Workshop - Secure Software Factory</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/example/">Example Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/jdv_dev/">JBoss Data Virtualization Development</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/strangling_the_monolith/">Microservices Workshop - Strangling the Monolith</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/openshift_101_dcmetromap/">OpenShift 101 - DC Metro Map Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/openshift_install/">OpenShift Install</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/security_openshift/">OpenShift Security Workshop</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/rhosp_101/">Red Hat OpenStack Platform 101</a>
+                  </li>
+                
+                  <li>
+                    <a href="/workshops/source_to_image/">Source to Image</a>
+                  </li>
+                
+              </ul>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="jumbotron jumbotron-page text-center">
+  <h1>Lab 17 - Clair Vulnerability Scan</h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <p class="text-center">
+      
+      <a href="http://redhatgov.io/workshops/secure_software_factory">Return to Workshop</a>
+    </p>
+    
+    
+
+
+
+
+
+
+
+<nav>
+  <ul class="pager">
+    
+      <li class="previous">
+        <a href="http://redhatgov.io/workshops/secure_software_factory/lab16/">&larr; Previous: Lab 16 - Create Quay Account and Repo</a>
+      </li>
+    
+    
+      <li class="next">
+        <a href="http://redhatgov.io/workshops/secure_software_factory/lab18/">Next: Lab 18 - OpenSCAP DISA STIG Scan &rarr;</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+    
+
+<h1 id="add-clair-container-scan">Add Clair Container Scan</h1>
+
+<p>Add the configuration for the Container Vulnerability Scan below to your pipeline text file.</p>
+
+<p><img src="../images/pipeline_container_scan.png" width="900"><br/></p>
+
+<p><br></p>
+
+<h1 id="append-to-jenkins-pipeline-configuration">Append to Jenkins Pipeline Configuration</h1>
+
+<p>In Builds &gt; Pipelines &gt; tasks-pipeline &gt; Actions &gt; Edit</p>
+
+<p><img src="../images/pipeline_actions_edit.png" width="900" /></p>
+
+<p>In your pipeline, add and update the following variables after the version and mvnCmd definitions.  Please fill in the values between the quotes.</p>
+
+<ul>
+<li>ocuser : the openshift user given to you by your insturctor</li>
+<li>ocpass : the openshift password given to you by your insturctor</li>
+<li>ocp : the openshift host given to you by your instuctor</li>
+<li>quayuser : the quay user you created previously</li>
+<li>quaypass : the quay password you created previously</li>
+<li>quayrepo : the quay repo you created previously i.e. jboss-eap70-openshift</li>
+</ul>
+
+<pre><code>def version, mvnCmd = &quot;mvn -s configuration/cicd-settings-nexus3.xml&quot;
+def ocuser = &quot; &quot;
+def ocpass = &quot; &quot;
+def ocp = &quot; &quot;
+def quayuser = &quot; &quot;
+def quaypass = &quot; &quot;
+def quayrepo = &quot; &quot;
+</code></pre>
+
+<p>For Example:</p>
+
+<pre><code>def version, mvnCmd = &quot;mvn -s configuration/cicd-settings-nexus3.xml&quot;
+def ocuser = &quot;user1&quot;
+def ocpass = &quot;openshift&quot;
+def ocp = &quot;ocp-devsecops.redhatgov.io&quot;
+def quayuser = &quot;user1&quot;
+def quaypass = &quot;openshift&quot;
+def quayrepo = &quot;jboss-eap70-openshift&quot;
+</code></pre>
+
+<p>In your pipeline, replace the Jenkins agent 'maven' with 'jenkins-slave-image-mgmt'.</p>
+
+<pre><code>pipeline {
+  agent {
+    label 'jenkins-slave-image-mgmt'
+  }
+</code></pre>
+
+<p>In your pipeline, add the Vulnerability Scan Stage after the Build Container Stage.</p>
+
+<pre><code>    stage('Clair Container Vulnerability Scan') {
+      steps {
+            sh &quot;oc login -u $ocuser -p $ocpass --insecure-skip-tls-verify https://$ocp 2&gt;&amp;1&quot;
+            sh 'skopeo --debug copy --src-creds=&quot;$(oc whoami)&quot;:&quot;$(oc whoami -t)&quot; --src-tls-verify=false --dest-tls-verify=false' + &quot; --dest-creds=$quayuser:$quaypass docker://docker-registry.default.svc:5000/cicd-$ocuser/jboss-eap70-openshift:1.5 docker://quay-enterprise-quay-enterprise.apps.$ocp/$quayuser/$quayrepo:1.5&quot;
+        }
+    }
+</code></pre>
+
+<p>Save your Jenkins file</p>
+
+<h1 id="run-pipeline">Run Pipeline</h1>
+
+<p>Go to Builds &gt; Pipeline</p>
+
+<p>Click Start Pipeline for the pipeline you just created called tasks-pipeline.</p>
+
+<p>Your pipeline should now execute through all the stages you created.</p>
+
+<p>Go ahead and click View Log.  This will take you to the Jenkins logs and you can follow the various stages in your pipeline.</p>
+
+<p>When it asks to promote to stage, go ahead and promote it.</p>
+
+<p><img src="../images/pipeline_execution.png" width="900"><br/></p>
+
+<p><br></p>
+
+<h1 id="view-clair-container-scan-report-in-quay">View Clair Container Scan Report in Quay</h1>
+
+<p>Select your Repository you created from the previous lab</p>
+
+<p><img src="../images/quay_repo.png" width="900"><br/></p>
+
+<p><br></p>
+
+<p>Select Repository Tags on the left hand menu</p>
+
+<ul>
+<li>If your scan is queued, you will need to wait for the scan to finish to view the report</li>
+</ul>
+
+<p>Select the Security Scan for your Image</p>
+
+<p><img src="../images/quay_repo_tags.png" width="900"><br/></p>
+
+<p><br></p>
+
+<p>View the Security Scan Report</p>
+
+<p><img src="../images/quay_scan.png" width="900"><br/></p>
+
+
+    
+
+
+
+
+
+
+
+<nav>
+  <ul class="pager">
+    
+      <li class="previous">
+        <a href="http://redhatgov.io/workshops/secure_software_factory/lab16/">&larr; Previous: Lab 16 - Create Quay Account and Repo</a>
+      </li>
+    
+    
+      <li class="next">
+        <a href="http://redhatgov.io/workshops/secure_software_factory/lab18/">Next: Lab 18 - OpenSCAP DISA STIG Scan &rarr;</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+    <p class="text-center">
+      
+      <a href="http://redhatgov.io/workshops/secure_software_factory">Return to Workshop</a>
+    </p>
+  </div>
+</div>
+
+    <div id="page-footer" class="container">
+      <p class="text-center">
+        Copyright &copy; 2019 Red Hat, Inc.
+      </p>
+    </div>
+    <script type="text/javascript">
+      if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+          _satellite.pageBottom();
+      }
+    </script>
+  </body>
+</html>
+
