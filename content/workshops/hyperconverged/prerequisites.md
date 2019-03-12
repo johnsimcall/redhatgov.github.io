@@ -1,7 +1,7 @@
 ---
 title: Prerequisites
 workshops: hyperconverged
-workshop_weight: 10
+workshop_weight: 1
 layout: lab
 ---
 
