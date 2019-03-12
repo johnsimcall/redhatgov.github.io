@@ -1,7 +1,7 @@
 ---
 title: Create A New Workshop
 workshops: hyperconverged
-workshop_weight: 20
+workshop_weight: 5
 layout: lab
 ---
 
