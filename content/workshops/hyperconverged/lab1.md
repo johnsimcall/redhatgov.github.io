@@ -1,5 +1,5 @@
 ---
-title: Lab 1 - Create a VM
+title: Lab 1 - Create Storage Network
 workshops: hyperconverged
 workshop_weight: 10
 layout: lab
@@ -7,70 +7,70 @@ layout: lab
 
 # Lab 1
 
-* Duration: 30 mins
+* Duration: 10 mins
 
 ## Part I - Upload a pre-made image (QCOW2)
 
-In an attempt to be efficient with our time today, we will create a virtual
- machine using a pre-created disk image.  Red Hat provides a minimal RHEL image
- that can be downloaded from the [Customer Portal](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.6/x86_64/product-software)
- in KVM/QCOW2 format.  KVM, or Kernel-based Virtual Machine, is an accelerated
- hypervisor used by the most high-performance VMs on the planet.  QCOW2, or
- Quick Copy-on-Write version 2, is an on-disk storage format for virtual
- machine disk images.  It is space efficient, supports snapshots, compression,
- link-cloning (backing files), and has other features...  Your lab instructor
- has previously downloaded the RHEL qcow2 image and placed it in your home directory. 
+Create the Logical Network for Gluster traffic.
+Click ‘Network’ in the left pane, and select the ‘Networks’ option:
 
-To create your first VM, begin by uploading the disk image into one of your
- [Storage Domains](# "A Storage Domain is a type of storage, e.g. SSD, 7200RPM,
- NFS, SAN/Fibre Channel, etc... that holds ISOs and VM disk images"):
+<br><img src="../images/lab0-network-1.png" "Login" width="900" /><br><br>
 
-1. Click ‘Storage’ in the left pane and select ‘Disks’
-2. Click the ‘Upload’ button and then ‘Start’
-3. Click ‘Choose File’ and look for *rhel-server-7.5-x86_64-kvm.qcow2*
-4. Enter **RHEL7.5** in the Alias field and click the *Test Connection* button.
-5. Click *Ok* to upload the qcow2 image.
-6. When you see the *Complete* text in the RHEL7.5 disk line, your image has been uploaded and is ready for use.
+Select ‘New’
+<br><img src="../images/lab0-network-2.png" "Login" width="900" /><br><br>
+
+Enter the following in the New Logical Network window:
+Name:                                gluster
+Description:                “Used for storage and live migrations”
+VM Network:                unchecked
+<br><img src="../images/lab0-network-3.png" "Login" width="900" /><br><br>
+
+Select ‘Cluster’ in the left pane of the window.
+Ensure the ‘Attach All’ box is checked.
+Required (cluster):        unchecked
+Select OK
+<br><img src="../images/lab0-network-4.png" "Login" width="900" /><br><br>
+
+Click ‘Compute’ and click ‘Clusters’ on the left pane:
+<br><img src="../images/lab0-network-5.png" "Login" width="900" /><br><br>
+
+Click the link for ‘Default’ cluster to go to the details page:
+<br><img src="../images/lab0-network-6.png" "Login" width="900" /><br><br>
+
+Select the ‘Logical Networks’ subtab:
+<br><img src="../images/lab0-network-7.png" "Login" width="900" /><br><br>
+
+Select ‘Manage Networks’
+<br><img src="../images/lab0-network-8.png" "Login" width="900" /><br><br>
+
+For the ‘gluster’ network, ensure that the following two (2) radio buttons are selected:
+Migration Network
+Gluster Network
+Select ‘OK’
+<br><img src="../images/lab0-network-9.png" "Login" width="900" /><br><br>
+
+You should now see the Gluster and Migration symbols in the ‘Role’ column for the ‘gluster’ network now:
+<br><img src="../images/lab0-network-10.png" "Login" width="900" /><br><br>
+
+Each hypervisor has two (2) ethernet ports. In the next section you will assign the ‘gluster’ and ‘management’ networks to individual network interfaces on each hypervisor. Repeat this for each hypervisor.
+While still on the ‘Default’ cluster, select the ‘Hosts’ subtab.
+Select the first hypervisor, ‘rhhi1’.
+<br><img src="../images/lab0-network-11.png" "Login" width="900" /><br><br>
+
+The following screen shows detailed information about the hypervisor:
+<br><img src="../images/lab0-network-12.png" "Login" width="900" /><br><br>
+
+Select the ‘Network Interfaces’ subtab.
+Select ‘Setup Host Networks’
+<br><img src="../images/lab0-network-13.png" "Login" width="900" /><br><br>
+
+Click and drag the ‘gluster’ logical network to the box next to ‘eth1’.
+<br><img src="../images/lab0-network-14.png" "Login" width="900" /><br><br>
+
+Your hosts’ interface assignments should look like the image below.
+Select ‘Ok’.
+<br><img src="../images/lab0-network-15.png" "Login" width="900" /><br><br>
 
 {{% alert warning %}}
-Uploading disk images via the browser **requires** a trusted connection. 
- If your browser hasn't be configured to trust the [**CA**](# "Certificate Authority") of the self-signed
- certificate, your upload will be *paused*.
+**Make sure to repeat this process for the other hosts in the cluster, ‘rhhi2’ and ‘rhhi3’.**
 {{% /alert %}}
-
-<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
-
-## Part II - Create a VM from the uploaded image
-
-With the disk image uploaded, we can create a VM and attach the existing disk
- to the new VM.  There are **lots** of settings that can be adjusted, but
- we'll stick to the basics right now of 1) Name 2) Operating System
- 3) Instance Type, which controls the # of CPU, RAM, etc... and
- 4) Desktop-vs-Server selection. 
- It's important to match the OS in the VM's definition to what's installed.
- Certain performance optimizations can be made automatically just by knowing
- what OS to expect, including presenting appropriate types of virtual
- hardware, e.g. SCSI, SATA, IDE, NICs, and display adapters.
-
-To finish creating your first VM:
-
-- Click ‘Compute’ in the left pane and click on ‘Virtual Machines’.
-- Click ‘New’ to create a VM
-- In the window that opens, make the following changes:
-  - Instance Type:	Small
-  - Name:		rhel7.5-template
-  - nic1:		ovirtmgmt/ovirtmgmt
-- Click ‘Attach’ next to ‘Instance Images’:
-- Select the ‘RHEL7.5’ image that was just created.
-- **MAKE THE DISK BOOTABLE** by checking the box in the ‘OS’ column
-- Click ‘OK’
-
-{{% alert warning %}}
-If you forget to mark the disk image as **bootable**, your VM won't boot.
-{{% /alert %}}
-
-<br><img src="../images/lab1-create-vm-1.png" "Login" width="900" /><br><br>
-<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
-<br><img src="../images/lab1-create-vm-3.png" "Login" /><br><br>
-
-
