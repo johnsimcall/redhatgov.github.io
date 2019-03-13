@@ -28,4 +28,6 @@ This workshop is meant for anyone that is looking to deploy an HCI solution to m
 
 # Agenda
 
+- The Value of RHHI - Presentation
+
 {{< labs hyperconverged >}}
