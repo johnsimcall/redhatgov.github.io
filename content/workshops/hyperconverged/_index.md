@@ -6,21 +6,29 @@ menu:
     pre: fa fa-play-circle 
 ---
 
-# Introduction
+## Description
 
-This is an example workshop to showcase what is possible when building
-workshops. You can find examples of how to organize your content, what
-shortcodes are available, and the widgets available as a part of the
-`redhatgov` theme.
+In this workshop you will learn about Red Hat's Hyperconverged Infrastructure and how you can manage, maintain and deploy a software defined infrastructure from a single UI.
 
-{{% alert success %}}
-**This workshop is also expected to be used as a starting point for any new
-workshop.**
+The Red Hat Hyperconverged Workshop is meant for anyone that is looking to deploy an HCI solution to make infrastructure easy to manage, maintain and deploy.  We being with a short overview and then get into the lab as soon as possible. That is where we will spend most of our time.
 
-Pay special attention to the lab on how to copy this workshop and what changes
-are required to make your workshop show up in the menus.
-{{% /alert %}}
+## Who should attend
 
-# Labs
+- Virtulization Administrators
+- Server / Storage Administrators
+- Infrastructure Administrators / Architects
+
+## What you will learn
+
+- Deployment overview
+- Virtual Machine basics
+- Automated Infrastructure (Creating VMs / Networks / Storage from code)
+- Importing existing VMs from VMware
+- High availability features (Live migrations & non-disruptive upgrades)
+
+
+# Agenda
+
+- The Value of RHHI - Presentation
 
 {{< labs hyperconverged >}}
