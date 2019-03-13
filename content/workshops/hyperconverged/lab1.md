@@ -9,6 +9,7 @@ layout: lab
 
 * Duration: 10 mins
 
+
 ## Part I - Create the Logical Network for Storage
 
 - Click ‘Network’ in the left pane, and select the ‘Networks’ option:
