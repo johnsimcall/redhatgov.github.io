@@ -35,7 +35,7 @@ layout: lab
   - nic1:		ovirtmgmt/ovirtmgmt
 - Click ‘Attach’ next to ‘Instance Images’:
 
-<br><img src="../images/lab1-create-vm-2.png" "Login" /><br><br>
+<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
 
 - Select the ‘RHEL7.5’ image that was just created.
 - **MAKE THE DISK BOOTABLE** - Check the box under the ‘OS’ column
