@@ -8,8 +8,6 @@ layout: lab
 # Lab 3
 
 * Duration: 30 mins
-* Audience:
-
 
 To mimic a security upgrade, an update is available for each of the RHHI hosts. Upgrade the RHHI cluster to the latest.
 

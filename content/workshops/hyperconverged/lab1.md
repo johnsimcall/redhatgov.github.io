@@ -8,38 +8,69 @@ layout: lab
 # Lab 1
 
 * Duration: 30 mins
-* Audience:
 
-## Part I - Upload qcow2 Image
+## Part I - Upload a pre-made image (QCOW2)
 
-<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
+In an attempt to be efficient with our time today, we will create a virtual
+ machine using a pre-created disk image.  Red Hat provides a minimal RHEL image
+ that can be downloaded from the [Customer Portal](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.6/x86_64/product-software)
+ in KVM/QCOW2 format.  KVM, or Kernel-based Virtual Machine, is an accelerated
+ hypervisor used by the most high-performance VMs on the planet.  QCOW2, or
+ Quick Copy-on-Write version 2, is an on-disk storage format for virtual
+ machine disk images.  It is space efficient, supports snapshots, compression,
+ link-cloning (backing files), and has other features...  Your lab instructor
+ has previously downloaded the RHEL qcow2 image and placed it in your home directory. 
+
+To create your first VM, begin by uploading the disk image into one of your
+ [Storage Domains](# "A Storage Domain is a type of storage, e.g. SSD, 7200RPM,
+ NFS, SAN/Fibre Channel, etc... that holds ISOs and VM disk images"):
 
 1. Click ‘Storage’ in the left pane and select ‘Disks’
 2. Click the ‘Upload’ button and then ‘Start’
-3. Click ‘Choose File’
-4. Navigate to the *cloud-users* home directory, and choose *rhel-server-7.5-x86_64-kvm.qcow2*
-5. Enter **RHEL7.5** in the Alias field and click the *Test Connection* button.
-6. Click *Ok* to upload the qcow2 image.
-7. When you see the *Complete* text in the RHEL7.5 disk line, your image has been uploaded and is ready for use.
+3. Click ‘Choose File’ and look for *rhel-server-7.5-x86_64-kvm.qcow2*
+4. Enter **RHEL7.5** in the Alias field and click the *Test Connection* button.
+5. Click *Ok* to upload the qcow2 image.
+6. When you see the *Complete* text in the RHEL7.5 disk line, your image has been uploaded and is ready for use.
 
-## Part II - Create VM from uploaded qcow2 Image
+{{% alert warning %}}
+Uploading disk images via the browser **requires** a trusted connection. 
+ If your browser hasn't be configured to trust the [**CA**](# "Certificate Authority") of the self-signed
+ certificate, your upload will be *paused*.
+{{% /alert %}}
+
+<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
+
+## Part II - Create a VM from the uploaded image
+
+With the disk image uploaded, we can create a VM and attach the existing disk
+ to the new VM.  There are **lots** of settings that can be adjusted, but
+ we'll stick to the basics right now of 1) Name 2) Operating System
+ 3) Instance Type, which controls the # of CPU, RAM, etc... and
+ 4) Desktop-vs-Server selection. 
+ It's important to match the OS in the VM's definition to what's installed.
+ Certain performance optimizations can be made automatically just by knowing
+ what OS to expect, including presenting appropriate types of virtual
+ hardware, e.g. SCSI, SATA, IDE, NICs, and display adapters.
+
+To finish creating your first VM:
 
 - Click ‘Compute’ in the left pane and click on ‘Virtual Machines’.
 - Click ‘New’ to create a VM
-
-<br><img src="../images/lab1-create-vm-1.png" "Login" width="900" /><br><br>
-
 - In the window that opens, make the following changes:
   - Instance Type:	Small
   - Name:		rhel7.5-template
   - nic1:		ovirtmgmt/ovirtmgmt
 - Click ‘Attach’ next to ‘Instance Images’:
-
-<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
-
 - Select the ‘RHEL7.5’ image that was just created.
-- **MAKE THE DISK BOOTABLE** - Check the box under the ‘OS’ column
+- **MAKE THE DISK BOOTABLE** by checking the box in the ‘OS’ column
 - Click ‘OK’
 
+{{% alert warning %}}
+If you forget to mark the disk image as **bootable**, your VM won't boot.
+{{% /alert %}}
+
+<br><img src="../images/lab1-create-vm-1.png" "Login" width="900" /><br><br>
+<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
 <br><img src="../images/lab1-create-vm-3.png" "Login" /><br><br>
+
 

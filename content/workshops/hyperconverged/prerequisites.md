@@ -7,11 +7,17 @@ layout: lab
 
 # Logistics
 
- - This workshop is hosted in Ravello. All remote access is facilitated via your browser.
- - Lab credentials are either **root/redhat1** or **admin/redhat1**
- - 4x Virtual Machines
+
+{{% alert warning %}}
+Connection details will be provided by the workshop instructor.
+The workshop resources are hosted in a public cloud.
+Only a modern web browser is requied to participate.
+{{% /alert %}}
+
+ - Login credentials are either **root/redhat1** or **admin/redhat1**
+ - 4x Virtual Machines have been pre-created, and you will create the 5th VM
    - 1x Admin node (provides DNS, DHCP, NFS, VNC, and repos)
-   - 1x RHV-Manager (created during install)
+   - 1x RHV-Manager *(created during install)*
    - 3x Hypervisors with local storage
      - rhhi1.localdomain / NIC2: rhhi1-gluster
      - rhhi2.localdomain / NIC2: rhhi2-gluster
@@ -20,4 +26,3 @@ layout: lab
 # Your Environment
 
 <br><img src="../images/pre-infrastructure.png" "Login" width="900" /><br><br>
-

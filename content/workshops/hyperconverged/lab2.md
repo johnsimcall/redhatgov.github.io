@@ -8,10 +8,8 @@ layout: lab
 # Lab 2
 
 * Duration: 30 mins
-* Audience:
 
-In this lab, we create a template from the VM that was just created. In order to create a template, the VM must be **powered off**.
-
+In this lab, we create a template from your first VM. In order to create a template, the VM must be **powered off**.
 
 ## Part I - Create the actual template from an existing VM
 
@@ -21,18 +19,15 @@ In this lab, we create a template from the VM that was just created. In order to
 
 <br><img src="../images/lab2-create-template-1.png" "Login" width="900" /><br><br>
 
-4. Give the new template a name:	rhel7.5-server
+4. Give the new template a name: rhel7.5-server
 5. Select the 'vmstore' storage domain from the **Target** dropdown
 6. Select ‘OK’
 
 <br><img src="../images/lab2-create-template-2.png" "Login" width="900" /><br><br>
 
 {{% alert warning %}}
-**
 The ‘Status’ column will show ‘Image Locked’ during creation.
-**
 {{% /alert %}}
-
 
 ## Part II - Create VM from Template
 
@@ -47,7 +42,6 @@ Once the VM Template creation completes, time to spin up a new VM using that tem
 3. Select ‘OK’
 
 <br><img src="../images/lab2-create-template-4.png" "Login" width="900" /><br><br>
-
 
 ## Part III - Using cloud-init to Run the VM
 
@@ -78,7 +72,6 @@ Now that we have a VM built from this template, run the VM using a built-in tool
 
 <br><img src="../images/lab2-create-template-7.png" "Login" width="900" /><br><br>
 
-
 6. Access the VM console. You can access the console of the VM by:
   - Right click the vm, select ‘Console’
 		OR
@@ -88,8 +81,10 @@ Now that we have a VM built from this template, run the VM using a built-in tool
 
   - Click ‘OK’ to open the console with ‘Remote Viewer’
 
+{{% alert success %}}
+The native console viewer, known as Remote Viewer or Virt Viewer, is available
+ for Windows and Linux workstations.  A browser-based console is also available
+ which doesn't require anything to be installed on the workstation.
+{{% /alert %}}
+
 <br><img src="../images/lab2-create-template-9.png" "Login" /><br><br>
-
-
-
-

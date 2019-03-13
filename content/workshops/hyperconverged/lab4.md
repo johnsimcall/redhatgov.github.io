@@ -8,7 +8,6 @@ layout: lab
 # Lab 4
 
 * Duration: 30 mins
-* Audience:
 
 ## Part I - Create the Snapshot
 

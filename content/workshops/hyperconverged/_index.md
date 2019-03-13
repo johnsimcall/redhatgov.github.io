@@ -8,9 +8,9 @@ menu:
 
 ## Description
 
-In this workshop you will learn about Red Hat's Hyperconverged Infrastructure and how you can manage, maintain and deploy a software defined infrastructure from a single UI.
+In this workshop you will learn about Red Hat's Hyperconverged Infrastructure product (RHHI) and how you can manage, maintain and deploy software-defined infrastructure.
 
-The Red Hat Hyperconverged Workshop is meant for anyone that is looking to deploy an HCI solution to make infrastructure easy to manage, maintain and deploy.  We being with a short overview and then get into the lab as soon as possible. That is where we will spend most of our time.
+This workshop is meant for anyone that is looking to deploy an HCI solution to make their infrastructure easy to manage, maintain and deploy.  We begin with a short overview of the provided resources, and then get right into the hands-on labs as soon as possible.
 
 ## Who should attend
 
@@ -26,9 +26,6 @@ The Red Hat Hyperconverged Workshop is meant for anyone that is looking to deplo
 - Importing existing VMs from VMware
 - High availability features (Live migrations & non-disruptive upgrades)
 
-
 # Agenda
-
-- The Value of RHHI - Presentation
 
 {{< labs hyperconverged >}}
