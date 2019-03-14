@@ -1,3 +1,17 @@
 
 ./bin/hugo server --bind 10.15.168.14 --baseURL http://rhclient4.dota-lab.iad.redhat.com &
 
+
+#### PREPARE FOR HOSTING ####
+cd ./content/workshops/hyperconverged
+for i in $(find images/ -type f -printf '%f\n'); do
+  grep -qR $i || echo "$i is never used, consider DELETING it."
+done
+
+cd ./content/workshops
+for i in $(find . -maxdepth 1 -not -name '.' -not -name 'hyperconverged'); do
+  rm -rif $i
+done
+
+./bin/hugo --baseURL http://people.redhat.com/jcall/rhhi/docs --canonifyURLs
+#### END HOSTING PREP ####
