@@ -9,25 +9,25 @@ layout: lab
 
 * Duration: 10 mins
 
+A hyperconverged infrastructure only *requires* one NIC/network.  The various
+traffic types, e.g. management, storage replication, live migration, and VM
+networks, etc... could all happily co-exist on a single network.  A "VM Network"
+is a network that your VMs and their applications can connect to directly.
+Common  examples are DMZ, Intranet, Backup, Accounting, Media, etc...
+Using a single network for everything quickly becomes a performance bottleneck
+and a security concern.  As a best practice we illustrate creating a logical
+network that will be dedicated for storage.  This network will **not** be
+tagged as a "VM Network."
+
+The process for creating a new Logical Network has three parts:
+
+1. Create the network definition by giving it a name and deciding whether or not
+   it will be be a "VM Network"
+2. If the network is *service* network (e.g. not a VM Network) we assign it's
+   **roles** at the Cluster level
+3. Attach the new network to a Host's NIC(s) and assign IP addresses
+
 ## Part I - Create a "logical" network for storage traffic
-
- A hyperconverged infrastructure only *requires* one NIC/network.  The various
- traffic types, e.g. management, storage replication, live migration, and VM
- networks, etc... could all happily co-exist on a single network.  A "VM Network"
- is a network that your VMs and their applications can connect to directly.
- Common  examples are DMZ, Intranet, Backup, Accounting, Media, etc...
- Using a single network for everything quickly becomes a performance bottleneck
- and a security concern.  As a best practice we illustrate creating a logical
- network that will be dedicated for storage.  This network will **not** be
- tagged as a "VM Network."
-
- The process for creating a new Logical Network has three parts:
-
- 1. Create the network definition by giving it a name and deciding whether or not
-    it will be be a "VM Network"
- 2. If the network is *service* network (e.g. not a VM Network) we assign it's
-    **roles** at the Cluster level
- 3. Attach the new network to a Host's NIC(s) and assign IP addresses
 
  Let's get started creating our **Gluster storage** network by
  navigating to the network page and clicking *"New"*.
