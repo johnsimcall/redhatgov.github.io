@@ -59,6 +59,7 @@ To finish creating your first VM:
 - In the window that opens, make the following changes:
   - Instance Type:	Small
   - Name:		rhel7.5-template
+  - Operating System:   Red Hat Enterprise Linux 7.x x64
   - nic1:		ovirtmgmt/ovirtmgmt
 - Click ‘Attach’ next to ‘Instance Images’:
 - Select the ‘RHEL7.5’ image that was just created.
@@ -66,9 +67,7 @@ To finish creating your first VM:
 - Click ‘OK’
 
 {{% alert warning %}}
-If you forget to mark the disk image as **bootable**, your VM won't boot.
+If you forget to mark the disk image as **bootable** by checking the 'OS' box, your VM won't boot.
 {{% /alert %}}
 
-<br><img src="../images/lab1-create-vm-1.png" "Login" width="900" /><br><br>
 <br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
-<br><img src="../images/lab1-create-vm-3.png" "Login" /><br><br>

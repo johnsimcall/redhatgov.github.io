@@ -31,3 +31,5 @@ This workshop is meant for anyone that is looking to deploy an HCI solution to m
 - The Value of RHHI - Presentation
 
 {{< labs hyperconverged >}}
+
+- Demo: Importing a VM from VMware
