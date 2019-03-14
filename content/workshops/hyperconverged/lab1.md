@@ -9,47 +9,30 @@ layout: lab
 
 * Duration: 10 mins
 
+
 ## Part I - Create the Logical Network for Storage
 
 - Click ‘Network’ in the left pane, and select the ‘Networks’ option:
-<br><img src="../images/lab0-network-1.png" "Login" /><br><br>
-
 - Select ‘New’
-<br><img src="../images/lab0-network-2.png" "Login" /><br><br>
+<br><img src="../images/lab0-network-1.png" "Login" /><br><br>
 
 - Enter the following in the New Logical Network window:
   - Name:         gluster
   - Description:  “Used for storage and live migrations”
-  - VM Network:   unchecked
+  - VM Network:   **unchecked**
 <br><img src="../images/lab0-network-3.png" "Login" width="900" /><br><br>
 
-- Select ‘Cluster’ in the left pane of the window.
-  - Attach:  **checked**
-  - Require: **unchecked**
-- Select OK
-<br><img src="../images/lab0-network-4.png" "Login" width="900" /><br><br>
+## Part II - Assign Roles to Logical Network
 
-
-## Part II - Assign Roles to Logical Networks
-
-- Click ‘Compute’ and click ‘Clusters’ on the left pane:
-<br><img src="../images/lab0-network-5.png" "Login" width="900" /><br><br>
-
+- Click ‘Compute’ and then ‘Clusters’ on the left pane:
 - Click the link for ‘Default’ cluster to go to the details page:
-<br><img src="../images/lab0-network-6.png" "Login" width="900" /><br><br>
-
 - Select the ‘Logical Networks’ subtab:
-<br><img src="../images/lab0-network-7.png" "Login" width="900" /><br><br>
-
 - Select ‘Manage Networks’
-<br><img src="../images/lab0-network-8.png" "Login" width="900" /><br><br>
-
 - For the ‘storage’ network, ensure that the following two (2) radio buttons are selected:
   - **Migration Network**
   - **Gluster Network**
-
 - Select ‘OK’
-<br><img src="../images/lab0-network-9.png" "Login" width="900" /><br><br>
+<br><img src="../images/lab0-network-5.gif" "Login" width="900" /><br><br>
 
 - You should now see the Gluster and Migration symbols in the ‘Role’ column for the ‘gluster’ network now:
 <br><img src="../images/lab0-network-10.png" "Login" width="900" /><br><br>
