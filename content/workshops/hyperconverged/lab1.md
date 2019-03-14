@@ -48,21 +48,11 @@ Each hypervisor has two (2) ethernet ports. In this section you will assign the 
 
 - While still on the ‘Default’ cluster page, select the ‘Hosts’ subtab.
 - Select the first hypervisor, ‘rhhi1’.
-<br><img src="../images/lab0-network-11.png" "Login" width="900" /><br><br>
-
-- The following screen shows detailed information about the hypervisor:
-<br><img src="../images/lab0-network-12.png" "Login" width="900" /><br><br>
-
 - Select the ‘Network Interfaces’ subtab.
 - Select ‘Setup Host Networks’
-<br><img src="../images/lab0-network-13.png" "Login" width="900" /><br><br>
-
 - Click and drag the ‘gluster’ logical network to the box next to ‘eth1’.
-<br><img src="../images/lab0-network-14.png" "Login" width="900" /><br><br>
-
-- Your hosts’ interface assignments should look like the image below.
 - Select ‘Ok’.
-<br><img src="../images/lab0-network-15.png" "Login" width="900" /><br><br>
+<br><img src="../images/lab0-network-16.gif" "Login" width="900" /><br><br>
 
 {{% alert warning %}}
 **Make sure to repeat this process for the other hosts in the cluster, ‘rhhi2’ and ‘rhhi3’.**
