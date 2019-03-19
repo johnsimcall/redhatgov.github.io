@@ -1,5 +1,5 @@
 ---
-title: Lab 2 - Create a VM
+title: Lab 2 - Create a Template
 workshops: hyperconverged
 workshop_weight: 20
 layout: lab
@@ -9,68 +9,79 @@ layout: lab
 
 * Duration: 30 mins
 
-In an attempt to be efficient with our time today, we will create a virtual
-machine using a pre-created disk image.  Red Hat provides a minimal RHEL image
-that can be downloaded from the [Customer Portal](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.6/x86_64/product-software)
-in KVM/QCOW2 format.  KVM, or Kernel-based Virtual Machine, is an accelerated
-hypervisor used by the most high-performance VMs on the planet.  QCOW2, or
-Quick Copy-on-Write version 2, is an on-disk storage format for virtual
-machine disk images.  It is space efficient, supports snapshots, compression,
-link-cloning (backing files), and has other features...  Your lab instructor
-has previously downloaded the RHEL qcow2 image and placed it in your home directory.
-
-## Part I - Upload a pre-made image (QCOW2)
-
-To create your first VM, begin by uploading the disk image into one of your *Storage Domains*.
-
-{{% alert info %}}
-A "Storage Domain" is a type of storage, e.g. SSD, 7200RPM,
-NFS, SAN/Fibre Channel, etc... that holds ISOs and VM disk images
-{{% /alert %}}
-
-1. Click 'Storage' in the left pane and select 'Disks'
-2. Click the 'Upload' button and then 'Start'
-3. Click 'Choose File' and look for *rhel-server-7.5-x86_64-kvm.qcow2*
-4. Enter **RHEL7.5** in the Alias field and click the *Test Connection* button.
-5. Click *Ok* to upload the qcow2 image.
-6. When you see the *Complete* text in the RHEL7.5 disk line, your image has been uploaded and is ready for use.
+In the previous lab, we created a straight forward VM from a qcow image (and you could have installed the VM the old fashioned way from an ISO). But what if you want this to be your GOLD image for how you deploy future VMs? Perhaps you have monitoring tools, LDAP configurations, security hardening profiles, or specific applications that need to be installed before you create a Template to act as your GOLD image. In this lab, we create a Template from the VM that we created in Lab 2.
 
 {{% alert warning %}}
-Uploading disk images via the browser **requires** a trusted connection.
- If your browser hasn't be configured to trust the **CA / Certificate Authority** of the self-signed
- certificate, your upload will be *paused*.
+**In order to create a template, the VM must be powered off.**
 {{% /alert %}}
 
-<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
 
-## Part II - Create a VM from the uploaded image
+## Part I - Create a Template From Existing VM
 
-With the disk image uploaded, we can create a VM and attach the existing disk
- to the new VM.  There are **lots** of settings that can be adjusted, but
- we'll stick to the basics right now of 1) Name 2) Operating System
- 3) Instance Type, which controls the # of CPU, RAM, etc... and
- 4) Desktop-vs-Server selection.
- It's important to match the OS in the VM's definition to what's installed.
- Certain performance optimizations can be made automatically just by knowing
- what OS to expect, including presenting appropriate types of virtual
- hardware, e.g. SCSI, SATA, IDE, NICs, and display adapters.
+- Click 'Compute' and 'Virtual Machines' in the left pane
+- Select the newly created vm from the previous lab, 'rhel7.5-template'
+- Click on the 3 dots on the right side and choose 'Make Template'
+<br><img src="../images/lab2-create-template-1.png" "Login" width="900" /><br><br>
 
-To finish creating your first VM:
+- Give the new template a name: rhel7.5-server
+- Select the 'vmstore' storage domain from the **Target** dropdown
+- Select 'OK'
+<br><img src="../images/lab2-create-template-2.png" "Login" /><br><br>
 
-- Click 'Compute' in the left pane and click on 'Virtual Machines'.
-- Click 'New' to create a VM
-- In the window that opens, make the following changes:
+{{% alert warning %}}
+The 'Status' column will show 'Image Locked' during creation.
+{{% /alert %}}
+
+
+## Part II - Create VM from Template
+
+Once the VM Template creation completes, let's spin up a new VM using that references that Template.
+
+- Similar to what you performed in Lab 1, click 'Compute' in the left pane and click 'Virtual Machines'.
+- Click 'New' to create the VM, but instead of attaching an Instance Image like we did in Lab 1, we'll be choosing the newly created template from the dropdown:
+  - Template:		rhel7.5-server
   - Instance Type:	Small
-  - Name:		rhel7.5-template
-  - Operating System:   Red Hat Enterprise Linux 7.x x64
+  - Name:		vm-from-template
   - nic1:		ovirtmgmt/ovirtmgmt
-- Click 'Attach' next to 'Instance Images':
-- Select the 'RHEL7.5' image that was just created.
-- **MAKE THE DISK BOOTABLE** by checking the box in the 'OS' column
+- Select 'OK'
+<br><img src="../images/lab2-create-template-4.png" "Login" /><br><br>
+
+
+## Part III - Using Cloud-Init to Run a VM
+
+Now that we have a VM built from this Template, we're going to use a tool called 'cloud-init' to customize the image. We won't dive into all of the features and power that 'cloud-init' has, just know that it is a customization tool for editing a VM image.
+
+- Change the root password of the VM:
+  - Select the newly created 'vm-from-template' VM
+  - Click the dropdown next to the 'Run' button
+  - Click 'Run Once'
+<br><img src="../images/lab2-create-template-5.png" "Login" width="900" /><br><br>
+
+- The following window opens. Expand the 'Initial Run' option and fill in the following:
+  - Check the box for 'Use Cloud-Init'
+  - Click and expand the 'Authentication' section:
+    - User Name:	root
+    - Password:		redhat1
+    - Verify Password:	redhat1
+<br><img src="../images/lab2-create-template-6.png" "Login" width="900" /><br><br>
+
+- Click and expand the 'Networks' section:
+  - Check the box for 'In-guest Network Interface Name' and enter **eth0** as the name
+  - Click 'Add new'
+  - IPv4 Boot Protocol:	DHCP
+- Check the box for 'Rollback this configuration during reboots'
 - Click 'OK'
+<br><img src="../images/lab2-create-template-7.png" "Login" width="900" /><br><br>
 
-{{% alert warning %}}
-If you forget to mark the disk image as **bootable** by checking the 'OS' box, your VM won't boot.
-{{% /alert %}}
+- Access the VM console. You can access the console of the VM by either of the following methods:
+  - Right click the vm, select 'Console'
+  - Click the 'Console' button
+<br><img src="../images/lab2-create-template-8.png" "Login" width="900" /><br><br>
 
-<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
+  - Click 'OK' to open the console with 'Remote Viewer'
+  <br><img src="../images/lab2-create-template-9.png" "Login" /><br><br>
+  {{% alert success %}}
+  The native console viewer, known as Remote Viewer or Virt Viewer, is available
+  for Windows and Linux workstations.  A browser-based console is also available
+  which doesn't require anything to be installed on the workstation.
+  {{% /alert %}}

@@ -1,5 +1,5 @@
 ---
-title: Lab 3 - Create a Template
+title: Lab 3 - Live migrations and Host upgrades
 workshops: hyperconverged
 workshop_weight: 30
 layout: lab
@@ -7,81 +7,62 @@ layout: lab
 
 # Lab 3
 
-* Duration: 30 mins
+* Duration: 10 mins
 
-In the previous lab, we created a straight forward VM from a qcow image (and you could have installed the VM the old fashioned way from an ISO). But what if you want this to be your GOLD image for how you deploy future VMs? Perhaps you have monitoring tools, LDAP configurations, security hardening profiles, or specific applications that need to be installed before you create a Template to act as your GOLD image. In this lab, we create a Template from the VM that we created in Lab 2.
+Now that we have some VMs created, we want them to stay up 100% of the time.
+Achieving maximum uptime is very easy with *Live Migrations*.  A Live Migration
+is what we call the process of transferring a VM from one host to another host
+without any downtime to the VM.  This feat of magic is only possible when both hosts
+have access to the VM's storage.  Fortunatley our Hyperconverged solution
+provides shared storage for all your VMs!
 
-{{% alert warning %}}
-**In order to create a template, the VM must be powered off.**
-{{% /alert %}}
-
-
-## Part I - Create a Template From Existing VM
-
-- Click 'Compute' and 'Virtual Machines' in the left pane
-- Select the newly created vm from the previous lab, 'rhel7.5-template'
-- Click on the 3 dots on the right side and choose 'Make Template'
-<br><img src="../images/lab2-create-template-1.png" "Login" width="900" /><br><br>
-
-- Give the new template a name: rhel7.5-server
-- Select the 'vmstore' storage domain from the **Target** dropdown
-- Select 'OK'
-<br><img src="../images/lab2-create-template-2.png" "Login" /><br><br>
+The most likely reason to trigger a Live Migration event is when a host needs
+to apply an update for security/features/bug-fix reasons.  Or if a Host has too
+many VMs running, and it needs to share the load with other Hosts in the Cluster.
+The hosts in your environment have an update available, and we want to apply iti
+**and reboot** without affecting your VMs.
 
 {{% alert warning %}}
-The 'Status' column will show 'Image Locked' during creation.
+Migrating a VM requires that VM's memory contents to be transferred across the
+network from the Source Host to the Destination Host.  If your VM has a
+*conservative* amount of RAM at 8GB and your Hosts have a 1Gb Migration NIC
+(like yours do)
+it will take ~60 seconds to transfer the VM's memory.  This process can be
+sped up using 10Gb or faster NICs.  Also, the process could take longer if
+the VM is busy doing work that keeps changing it's memory contents.
 {{% /alert %}}
 
+Fortunately Red Hat's Virtualization Manager handles all of the details of
+applying updates, like migrating away VMs and rebooting a host automatically.
+If you've configured email alerts you'll be notified when an update is available
+for your Hosts.  You can also visually identify which Hosts have updates pending
+by looking for the <img src="../images/lab3-live-migrate-1.png" /> icon.  Yes,
+that's a picture of a box of software containing a CD.  Honestly, who buys boxes
+of software anymore?!?
 
-## Part II - Create VM from Template
+As an example, let's apply the available update to one of your hosts.  Here are
+the steps to do that:
 
-Once the VM Template creation completes, let's spin up a new VM using that references that Template.
+1. Identify a Host that has an update available <img src="../images/lab3-live-migrate-1.png" />
+   **and** has running VMs on it (look in the "Virtual Machines" column)
+2. Click to select the Host
+3. Click on the "Installation" button and choose "Upgrade"
+4. Agree to have the Host rebooted during the Upgrade process
 
-- Similar to what you performed in Lab 1, click 'Compute' in the left pane and click 'Virtual Machines'.
-- Click 'New' to create the VM, but instead of attaching an Instance Image like we did in Lab 1, we'll be choosing the newly created template from the dropdown:
-  - Template:		rhel7.5-server
-  - Instance Type:	Small
-  - Name:		vm-from-template
-  - nic1:		ovirtmgmt/ovirtmgmt
-- Select 'OK'
-<br><img src="../images/lab2-create-template-4.png" "Login" /><br><br>
+{{% alert warning %}}
+Applying updates, migrating VMs, and rebooting takes about 5 minutes
+{{% /alert %}}
 
+{{% alert warning %}}
+You can monitor the progress of migrating VM's from the Virtual Machine page.
+Look for the progress bar next to the VM's reported CPU, RAM, and Network usage.
+{{% /alert %}}
 
-## Part III - Using Cloud-Init to Run a VM
+{{% alert danger %}}
+You can upgrade all of the Hosts if you like, just do them one at a time.
+In this environment we need to have 2 of the 3 Hosts online to continue servicing
+storage requests.
+{{% /alert %}}
 
-Now that we have a VM built from this Template, we're going to use a tool called 'cloud-init' to customize the image. We won't dive into all of the features and power that 'cloud-init' has, just know that it is a customization tool for editing a VM image.
-
-- Change the root password of the VM:
-  - Select the newly created 'vm-from-template' VM
-  - Click the dropdown next to the 'Run' button
-  - Click 'Run Once'
-<br><img src="../images/lab2-create-template-5.png" "Login" width="900" /><br><br>
-
-- The following window opens. Expand the 'Initial Run' option and fill in the following:
-  - Check the box for 'Use Cloud-Init'
-  - Click and expand the 'Authentication' section:
-    - User Name:	root
-    - Password:		redhat1
-    - Verify Password:	redhat1
-<br><img src="../images/lab2-create-template-6.png" "Login" width="900" /><br><br>
-
-- Click and expand the 'Networks' section:
-  - Check the box for 'In-guest Network Interface Name' and enter **eth0** as the name
-  - Click 'Add new'
-  - IPv4 Boot Protocol:	DHCP
-- Check the box for 'Rollback this configuration during reboots'
-- Click 'OK'
-<br><img src="../images/lab2-create-template-7.png" "Login" width="900" /><br><br>
-
-- Access the VM console. You can access the console of the VM by either of the following methods:
-  - Right click the vm, select 'Console'
-  - Click the 'Console' button
-<br><img src="../images/lab2-create-template-8.png" "Login" width="900" /><br><br>
-
-  - Click 'OK' to open the console with 'Remote Viewer'
-  <br><img src="../images/lab2-create-template-9.png" "Login" /><br><br>
-  {{% alert success %}}
-  The native console viewer, known as Remote Viewer or Virt Viewer, is available
-  for Windows and Linux workstations.  A browser-based console is also available
-  which doesn't require anything to be installed on the workstation.
-  {{% /alert %}}
+<br><img src="../images/lab3-live-migrate-2.png" "Login" width="900" /><br><br>
+<br><img src="../images/lab3-live-migrate-3.png" "Login" /><br><br>

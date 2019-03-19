@@ -1,5 +1,5 @@
 ---
-title: Lab 1 - Create Storage Network
+title: Lab 1 - Create a VM
 workshops: hyperconverged
 workshop_weight: 10
 layout: lab
@@ -7,90 +7,70 @@ layout: lab
 
 # Lab 1
 
-* Duration: 10 mins
+* Duration: 30 mins
 
-A hyperconverged infrastructure only *requires* one NIC/network.  The various
-traffic types, e.g. management, storage replication, live migration, and VM
-networks, etc... could all happily co-exist on a single network.  A "VM Network"
-is a network that your VMs and their applications can connect to directly.
-Common  examples are DMZ, Intranet, Backup, Accounting, Media, etc...
-Using a single network for everything quickly becomes a performance bottleneck
-and a security concern.  As a best practice we illustrate creating a logical
-network that will be dedicated for storage.  This network will **not** be
-tagged as a "VM Network."
+In an attempt to be efficient with our time today, we will create a virtual
+machine using a pre-created disk image.  Red Hat provides a minimal RHEL image
+that can be downloaded from the [Customer Portal](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.6/x86_64/product-software)
+in KVM/QCOW2 format.  KVM, or Kernel-based Virtual Machine, is an accelerated
+hypervisor used by the most high-performance VMs on the planet.  QCOW2, or
+Quick Copy-on-Write version 2, is an on-disk storage format for virtual
+machine disk images.  It is space efficient, supports snapshots, compression,
+link-cloning (backing files), and has other features...  Your lab instructor
+has previously downloaded the RHEL qcow2 image and placed it in your home directory.
 
-The process for creating a new Logical Network has three parts:
+## Part I - Upload a pre-made image (QCOW2)
 
-1. Create the network definition by giving it a name and deciding whether or not
-   it will be be a "VM Network"
-2. If the network is *service* network (e.g. not a VM Network) we assign it's
-   **roles** at the Cluster level
-3. Attach the new network to a Host's NIC(s) and assign IP addresses
+To create your first VM, begin by uploading the disk image into one of your *Storage Domains*.
 
-## Part I - Create a "logical" network for storage traffic
-
- Let's get started creating our **Gluster storage** network by
- navigating to the network page and clicking *"New"*.
-
- When you create your network, take care to assign these values:
-
- - Name: gluster
- - Description: "Used for storage and live migrations"
- - VM Network: **unchecked**
-
-<br><img src="../images/lab0-network-1.png" "Login" /><br><br>
-
-<br><img src="../images/lab0-network-3.png" "Login" /><br><br>
-
-## Part II - Assign Roles to Logical Network
-
- Now that our **gluster** network has been defined, it's time to declare what it
- will be used for.  This declartion is done at the *Cluster* level.  The choices
- are:
-
- - VM Network
- - Management
- - Display
- - Migration
- - Gluster
- - Default Route
-
- We want this network to be used for Gluster (and maybe Live Migrations,
- if you feel so inclined)
-
- The steps to assign these roles are to:
-
- 1. Click 'Compute' and then 'Clusters' on the left pane:
- 2. Click the link for 'Default' cluster to go to the details page:
- 3. Select the 'Logical Networks' subtab:
- 4. Select 'Manage Networks'
- 5. For the 'storage' network, ensure that the following two (2) radio buttons are selected:
-  - **Migration Network**
-  - **Gluster Network**
- 6. Select 'OK'
-<br><img src="../images/lab0-network-5.gif" "Login" width="900" /><br><br>
-{{% alert warning %}}
-You should now see the Gluster and Migration icons in the 'Role' column for the 'gluster' network.
-{{% /alert %}}
-<br><img src="../images/lab0-network-10.png" "Login" width="900" /><br><br>
-
-
-## Part III - Assign the Logical Network to a Physical NIC port
-
-Each hypervisor has two (2) ethernet ports. In this section you will assign the 'gluster' and 'management' networks to individual network interfaces on each hypervisor.
-
-{{% alert warning %}}
-**Make sure to repeat this process for the other hosts in the cluster, 'rhhi2' and 'rhhi3'.**
+{{% alert info %}}
+A "Storage Domain" is a type of storage, e.g. SSD, 7200RPM,
+NFS, SAN/Fibre Channel, etc... that holds ISOs and VM disk images
 {{% /alert %}}
 
-- While still on the 'Default' cluster page, select the 'Hosts' subtab.
-- Select the first hypervisor, 'rhhi1'.
-- Select the 'Network Interfaces' subtab.
-- Select 'Setup Host Networks'
-- Click and drag the 'gluster' logical network to the box next to 'eth1'.
-- Select 'Ok'.
-<br><img src="../images/lab0-network-16.gif" "Login" width="900" /><br><br>
+1. Click 'Storage' in the left pane and select 'Disks'
+2. Click the 'Upload' button and then 'Start'
+3. Click 'Choose File' and look for *rhel-server-7.5-x86_64-kvm.qcow2*
+4. Enter **RHEL7.5** in the Alias field and click the *Test Connection* button.
+5. Click *Ok* to upload the qcow2 image.
+6. When you see the *Complete* text in the RHEL7.5 disk line, your image has been uploaded and is ready for use.
 
 {{% alert warning %}}
-**Make sure to repeat this process for the other hosts in the cluster, 'rhhi2' and 'rhhi3'.**
+Uploading disk images via the browser **requires** a trusted connection.
+ If your browser hasn't be configured to trust the **CA / Certificate Authority** of the self-signed
+ certificate, your upload will be *paused*.
 {{% /alert %}}
+
+<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
+
+## Part II - Create a VM from the uploaded image
+
+With the disk image uploaded, we can create a VM and attach the existing disk
+ to the new VM.  There are **lots** of settings that can be adjusted, but
+ we'll stick to the basics right now of 1) Name 2) Operating System
+ 3) Instance Type, which controls the # of CPU, RAM, etc... and
+ 4) Desktop-vs-Server selection.
+ It's important to match the OS in the VM's definition to what's installed.
+ Certain performance optimizations can be made automatically just by knowing
+ what OS to expect, including presenting appropriate types of virtual
+ hardware, e.g. SCSI, SATA, IDE, NICs, and display adapters.
+
+To finish creating your first VM:
+
+- Click 'Compute' in the left pane and click on 'Virtual Machines'.
+- Click 'New' to create a VM
+- In the window that opens, make the following changes:
+  - Instance Type:	Small
+  - Name:		rhel7.5-template
+  - Operating System:   Red Hat Enterprise Linux 7.x x64
+  - nic1:		ovirtmgmt/ovirtmgmt
+- Click 'Attach' next to 'Instance Images':
+- Select the 'RHEL7.5' image that was just created.
+- **MAKE THE DISK BOOTABLE** by checking the box in the 'OS' column
+- Click 'OK'
+
+{{% alert warning %}}
+If you forget to mark the disk image as **bootable** by checking the 'OS' box, your VM won't boot.
+{{% /alert %}}
+
+<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
