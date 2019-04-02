@@ -22,7 +22,7 @@ many VMs running, and it needs to share the load with other Hosts in the Cluster
 The hosts in your environment have an update available, and we want to apply iti
 **and reboot** without affecting your VMs.
 
-{{% alert warning %}}
+{{% alert info %}}
 Migrating a VM requires that VM's memory contents to be transferred across the
 network from the Source Host to the Destination Host.  If your VM has a
 *conservative* amount of RAM at 8GB and your Hosts have a 1Gb Migration NIC
@@ -50,10 +50,7 @@ the steps to do that:
 4. Agree to have the Host rebooted during the Upgrade process
 
 {{% alert warning %}}
-Applying updates, migrating VMs, and rebooting takes about 5 minutes
-{{% /alert %}}
-
-{{% alert warning %}}
+Applying updates, migrating VMs, and rebooting takes about 5 minutes.<br>
 You can monitor the progress of migrating VM's from the Virtual Machine page.
 Look for the progress bar next to the VM's reported CPU, RAM, and Network usage.
 {{% /alert %}}
@@ -64,5 +61,5 @@ In this environment we need to have 2 of the 3 Hosts online to continue servicin
 storage requests.
 {{% /alert %}}
 
-<br><img src="../images/lab3-live-migrate-2.png" "Login" width="900" /><br><br>
-<br><img src="../images/lab3-live-migrate-3.png" "Login" /><br><br>
+<br><div style="text-align:center"><img src="../images/lab3-live-migrate-2.png" width="900" /><br><br>
+<br><img src="../images/lab3-live-migrate-3.png" /></div><br><br>

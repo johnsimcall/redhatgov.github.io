@@ -25,4 +25,4 @@ Only a modern web browser is requied to participate.
 
 # Your Environment
 
-<br><img src="../images/pre-infrastructure.png" "Login" width="900" /><br><br>
+<br><img src="../images/pre-infrastructure.png" width="900" /><br><br>

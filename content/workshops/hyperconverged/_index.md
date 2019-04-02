@@ -3,7 +3,7 @@ title: Hyperconverged Workshop
 menu:
   main:
     parent: workshops
-    pre: fa fa-play-circle 
+    pre: fa fa-server
 ---
 
 ## Description

@@ -19,7 +19,7 @@ machine disk images.  It is space efficient, supports snapshots, compression,
 link-cloning (backing files), and has other features...  Your lab instructor
 has previously downloaded the RHEL qcow2 image and placed it in your home directory.
 
-## Part I - Upload a pre-made image (QCOW2)
+## **Part I - Upload a pre-made image (QCOW2)**
 
 To create your first VM, begin by uploading the disk image into one of your *Storage Domains*.
 
@@ -41,9 +41,9 @@ Uploading disk images via the browser **requires** a trusted connection.
  certificate, your upload will be *paused*.
 {{% /alert %}}
 
-<br><img src="../images/lab1-upload-qcow2.gif" "Login" width="900" /><br><br>
+<br><img src="../images/lab1-upload-qcow2.gif" width="900" /><br><br>
 
-## Part II - Create a VM from the uploaded image
+## **Part II - Create a VM from the uploaded image**
 
 With the disk image uploaded, we can create a VM and attach the existing disk
  to the new VM.  There are **lots** of settings that can be adjusted, but
@@ -73,4 +73,4 @@ To finish creating your first VM:
 If you forget to mark the disk image as **bootable** by checking the 'OS' box, your VM won't boot.
 {{% /alert %}}
 
-<br><img src="../images/lab1-create-vm-2.gif" "Login" width="900" /><br><br>
+<br><img src="../images/lab1-create-vm-2.gif" width="900" /><br><br>

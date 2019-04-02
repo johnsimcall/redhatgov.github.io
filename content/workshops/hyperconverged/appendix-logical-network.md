@@ -36,9 +36,9 @@ The process for creating a new Logical Network has three parts:
  - Description: "Used for storage and live migrations"
  - VM Network: **unchecked**
 
-<br><img src="../images/lab0-network-1.png" "Login" /><br><br>
+<br><img src="../images/lab0-network-1.png" /><br><br>
 
-<br><img src="../images/lab0-network-3.png" "Login" /><br><br>
+<br><img src="../images/lab0-network-3.png" /><br><br>
 
 ## Part II - Assign Roles to Logical Network
 
@@ -66,11 +66,11 @@ The process for creating a new Logical Network has three parts:
   - **Migration Network**
   - **Gluster Network**
  6. Select 'OK'
-<br><img src="../images/lab0-network-5.gif" "Login" width="900" /><br><br>
+<br><img src="../images/lab0-network-5.gif" width="900" /><br><br>
 {{% alert warning %}}
 You should now see the Gluster and Migration icons in the 'Role' column for the 'gluster' network.
 {{% /alert %}}
-<br><img src="../images/lab0-network-10.png" "Login" width="900" /><br><br>
+<br><img src="../images/lab0-network-10.png" width="900" /><br><br>
 
 
 ## Part III - Assign the Logical Network to a Physical NIC port
@@ -87,7 +87,7 @@ Each hypervisor has two (2) ethernet ports. In this section you will assign the 
 - Select 'Setup Host Networks'
 - Click and drag the 'gluster' logical network to the box next to 'eth1'.
 - Select 'Ok'.
-<br><img src="../images/lab0-network-16.gif" "Login" width="900" /><br><br>
+<br><img src="../images/lab0-network-16.gif" width="900" /><br><br>
 
 {{% alert warning %}}
 **Make sure to repeat this process for the other hosts in the cluster, 'rhhi2' and 'rhhi3'.**
