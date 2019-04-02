@@ -27,6 +27,7 @@ Want to watch us walk you through the process? Here are 2 videos we made that co
     allowfullscreen frameborder="0">
     </iframe>
 </div>
+
 - Getting Started with Red Hat Hyperconverged Infrastructure - part 2
 <div class="embed video-player">
 <iframe class="youtube-player" type="text/html"

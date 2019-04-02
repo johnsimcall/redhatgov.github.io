@@ -1,5 +1,5 @@
 ---
-title: Lab 4 - Live migrations and Host upgrades
+title: Lab 4 - Snapshotting, Cloning, and Restoring a VM
 workshops: hyperconverged
 workshop_weight: 40
 layout: lab
@@ -7,62 +7,67 @@ layout: lab
 
 # Lab 4
 
-* Duration: 10 mins
+* Duration: 15 mins
 
-Now that we have some VMs created, we want them to stay up 100% of the time.
-Achieving maximum uptime is very easy with *Live Migrations*.  A Live Migration
-is what we call the process of transferring a VM from one host to another host
-without any downtime to the VM.  This feat of magic is only possible when both hosts
-have access to the VM's storage.  Fortunatley our Hyperconverged solution
-provides shared storage for all your VMs!
+## Part I - Create the Snapshot
 
-The most likely reason to trigger a Live Migration event is when a host needs
-to apply an update for security/features/bug-fix reasons.  Or if a Host has too
-many VMs running, and it needs to share the load with other Hosts in the Cluster.
-The hosts in your environment have an update available, and we want to apply iti
-**and reboot** without affecting your VMs.
+Snapshots can be created **online** or **offline**.
 
-{{% alert warning %}}
-Migrating a VM requires that VM's memory contents to be transferred across the
-network from the Source Host to the Destination Host.  If your VM has a
-*conservative* amount of RAM at 8GB and your Hosts have a 1Gb Migration NIC
-(like yours do)
-it will take ~60 seconds to transfer the VM's memory.  This process can be
-sped up using 10Gb or faster NICs.  Also, the process could take longer if
-the VM is busy doing work that keeps changing it's memory contents.
-{{% /alert %}}
+- Click on 'Compute' and then 'Virtual Machines' in the left pane
+- Right click a VM and choose 'Create Snapshot'
+<br><img src="../images/lab4-snapshot-1.png" "Login" width="900" /><br><br>
 
-Fortunately Red Hat's Virtualization Manager handles all of the details of
-applying updates, like migrating away VMs and rebooting a host automatically.
-If you've configured email alerts you'll be notified when an update is available
-for your Hosts.  You can also visually identify which Hosts have updates pending
-by looking for the <img src="../images/lab3-live-migrate-1.png" /> icon.  Yes,
-that's a picture of a box of software containing a CD.  Honestly, who buys boxes
-of software anymore?!?
+- Give the snapshot a meaningful name, and click 'Ok':
+<br><img src="../images/lab4-snapshot-2.png" "Login" /><br><br>
 
-As an example, let's apply the available update to one of your hosts.  Here are
-the steps to do that:
 
-1. Identify a Host that has an update available <img src="../images/lab3-live-migrate-1.png" />
-   **and** has running VMs on it (look in the "Virtual Machines" column)
-2. Click to select the Host
-3. Click on the "Installation" button and choose "Upgrade"
-4. Agree to have the Host rebooted during the Upgrade process
+## Part II - Preview your Snapshots
 
-{{% alert warning %}}
-Applying updates, migrating VMs, and rebooting takes about 5 minutes
-{{% /alert %}}
+- View your list of snapshots by visiting the VM details page.
+- Click the 'vm-from-template' name to go to the details view:
+<br><img src="../images/lab4-snapshot-3.png" "Login" width="900" /><br><br>
 
-{{% alert warning %}}
-You can monitor the progress of migrating VM's from the Virtual Machine page.
-Look for the progress bar next to the VM's reported CPU, RAM, and Network usage.
-{{% /alert %}}
+- Click the 'Snapshots' subtab to view a list of existing snapshots for that specific VM:
+<br><img src="../images/lab4-snapshot-4.png" "Login" width="900" /><br><br>
 
-{{% alert danger %}}
-You can upgrade all of the Hosts if you like, just do them one at a time.
-In this environment we need to have 2 of the 3 Hosts online to continue servicing
-storage requests.
-{{% /alert %}}
+There are a few options we will focus on in the next section of this lab:
 
-<br><img src="../images/lab3-live-migrate-2.png" "Login" width="900" /><br><br>
-<br><img src="../images/lab3-live-migrate-3.png" "Login" /><br><br>
+ - Preview and Commit (Restore a VM to a Snapshot)
+ - Clone (from a Snapshot)
+ - Make Template (from a Snapshot)
+
+
+### Preview and Commit
+
+In order to restore a VM from a snapshot, the VM **must be powered off**.
+
+ - While on the VM's detail view, click the 'Snapshots' subtab to list the available snapshots.
+ - Select the 'snap1-vm-from-template'.
+ - Click the 'Preview' drop-down menu button and select 'Custom'
+ - Use the check boxes to select the VM Configuration, Memory, and disk(s) you want to restore. This allows you to create and restore from a customized snapshot using the configuration and disk(s) from multiple snapshots.
+ - Click 'OK'
+
+<br><img src="../images/lab4-snapshot-5.png" "Login" width="900" /><br><br>
+
+ - If you start the virtual machine at this point, it runs using the disk image of the snapshot that is in preview. This allows you to test to make sure it's exactly what you want.
+ - To permanently restore the VM to the condition of the snapshot, click 'Commit'
+ - Alternatively, click the 'Undo' button to deactivate the snapshot and return the virtual machine to its previous state.
+
+
+### Clone from a Snapshot
+
+Perhaps you need to do additional testing or perform an RCA on a snapshot while the production VM is still serving its purpose. Best course of action here is to take a snapshot of the VM, then clone that snapshot.
+
+ - While on the VM's details view, click the 'Snapshots' subtab to list the available snapshots.
+ - Select the 'snap1-vm-from-template'.
+ - Select a snapshot in the list displayed and click 'Clone'.
+ - Enter the Name of the virtual machine.
+ - Click OK.
+
+<br><img src="../images/lab4-snapshot-6.png" "Login" width="900" /><br><br>
+
+
+### Clone from current VM (must be powered off)
+
+ - In the 'Compute' => 'Virtual Machines' menu, highlight VM and then click on the three dots and choose Clone VM.
+ - Provide a name for the clone, and click 'OK'.
