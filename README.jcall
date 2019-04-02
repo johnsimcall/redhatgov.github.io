@@ -1,3 +1,4 @@
+[http://rhclient4.dota-lab.iad.redhat.com:1313/workshops/hyperconverged/]
 
 ./bin/hugo server --bind 10.15.168.14 --baseURL http://rhclient4.dota-lab.iad.redhat.com &
 
