@@ -19,11 +19,22 @@ The first section will cover setting up the Software Defined Storage volumes tha
 
 Want to watch us walk you through the process? Here are 2 videos we made that cover installation:
 
-- Getting Started with Red Hat's Hyperconverged Infrastructure - part 1
-  - https://www.youtube.com/watch?v=VMH-u6wNPoY
-- Getting Started with Red Hat's Hyperconverged Infrastructure - part 2
-  - https://www.youtube.com/watch?v=1Mq-tftZddo
-
+- Getting Started with Red Hat Hyperconverged Infrastructure - part 1
+<div class="embed video-player">
+<iframe class="youtube-player" type="text/html"
+    width="640" height="385"
+    src="http://www.youtube.com/embed/VMH-u6wNPoY"
+    allowfullscreen frameborder="0">
+    </iframe>
+</div>
+- Getting Started with Red Hat Hyperconverged Infrastructure - part 2
+<div class="embed video-player">
+<iframe class="youtube-player" type="text/html"
+    width="640" height="385"
+    src="http://www.youtube.com/embed/1Mq-tftZddo"
+    allowfullscreen frameborder="0">
+    </iframe>
+</div>
 
 
 To start things off, point your browswer to `https://rhhi1.localdomain:9090` and login using **root/redhat1**
