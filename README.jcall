@@ -1,7 +1,8 @@
-[http://rhclient4.dota-lab.iad.redhat.com:1313/workshops/hyperconverged/]
+### LIVE PREVIEW IN DOTA.LAB ###
+[http://rhclient4.dota-lab.iad.redhat.com:1313/workshops/hyperconverged/](http://rhclient4.dota-lab.iad.redhat.com:1313/workshops/hyperconverged/)
 
+#### STARTUP LIVE PREVIEW IN DOTA.LAB ###
 ./bin/hugo server --bind 10.15.168.14 --baseURL http://rhclient4.dota-lab.iad.redhat.com &
-
 
 #### PREPARE FOR HOSTING ####
 cd ./content/workshops/hyperconverged
