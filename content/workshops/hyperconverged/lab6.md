@@ -7,12 +7,12 @@ layout: lab
 
 # Lab 6
 
-* Duration: 30 mins
-
 ## Part I - Add a Provider
 
-
-
-## Part II - Import the **windoze10** and **linucks7** VMs
-
-
+<div class="embed video-player">
+<iframe class="youtube-player" type="text/html"
+    width="640" height="385"
+    src="http://www.youtube.com/embed/CJa_fQGnHcs"
+    allowfullscreen frameborder="0">
+    </iframe>
+</div>
