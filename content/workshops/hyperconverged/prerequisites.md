@@ -27,7 +27,11 @@ You will be utilizing a browser-based noVNC session to access your environment, 
 
 ## **The Workshop Environment**
 
-* Login credentials are either **root/redhat1** or **admin/redhat1**
+The environment you'll be working with today has a jumphost called *admin*, which will allow you to access the rest . You will be accessing the *admin* host through a noVNC session in your browswer. 
+
+* The noVNC session password for the jumphost *admin* server will be shared while reviewing the prerequisites.
+* Login credentials for the **hypervisors** are **root/redhat1**
+* Login credentials for the **RHV-M** virtual machine are **admin/redhat1**
 * 4x Virtual Machines have been created for you:
  * 1x Admin node (provides DNS, DHCP, NFS, VNC, and repos to the rest of the environment)
  * 3x Hypervisors with local storage
