@@ -43,3 +43,13 @@ The environment you'll be working with today has a jumphost called *admin*, whic
 ## **RHHI-V Topology**
 
 <br><img src="../images/pre-infrastructure.png" width="900" /><br><br>
+
+
+## **Accessing Your Environment**
+
+The instructor will assign a student # to you. Once you have this #, click *here* to view a list of URLs to access the jumphost *admin* environment.
+
+The password for accessing this noVNC session will be shared with you during this review.
+
+
+
