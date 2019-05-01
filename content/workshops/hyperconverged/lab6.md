@@ -1,13 +1,14 @@
 ---
-title: Lab 6 - Import an existing VM from VMware
+title: Guided Demo - Import an existing VM from VMware
 workshops: hyperconverged
 workshop_weight: 60
 layout: lab
 ---
 
-# Lab 6
+# Guided Demo - Import an existing VM from VMware
 
-## Part I - Add a Provider
+While the previous Lab covered importing a standalone virtual machine appliance (saved as an .ova file), what about migrating multiple virtual machines at the same time from an existing hypervisor? This guided demo will do just that and walk you through importing a virtual machine from an existing VMware hypervisor.
+
 
 <div class="embed video-player">
 <iframe class="youtube-player" type="text/html"

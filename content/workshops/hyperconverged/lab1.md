@@ -9,7 +9,7 @@ layout: lab
 
 * Duration: 30 mins
 
-In an attempt to be efficient with our time today, we will create a virtual
+To be efficient with our time today, we will create a virtual
 machine using a pre-created disk image.  Red Hat provides a minimal RHEL image
 that can be downloaded from the [Customer Portal](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.6/x86_64/product-software)
 in KVM/QCOW2 format.  KVM, or Kernel-based Virtual Machine, is an accelerated
