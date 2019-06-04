@@ -1,8 +1,9 @@
 ---
-title: Lab 7 - Deploy VMs for OpenShift
-workshops: hyperconverged
-workshop_weight: 70
-layout: lab
+# TODO: clean this up in preparation for Springfield workshop 6/4/2019 - jcall
+#title: Lab 7 - Deploy VMs for OpenShift
+#workshops: hyperconverged
+#workshop_weight: 70
+#layout: lab
 ---
 
 # Lab 7
